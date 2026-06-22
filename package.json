@@ -1,36 +1,12 @@
 {
   "name": "react-yesquery",
   "version": "0.0.0-snapshot",
-  "description": "A simple library for React loading state management",
-  "keywords": [
-    "loading",
-    "query",
-    "state"
-  ],
-  "homepage": "https://github.com/butterhosting/react-yesquery#readme",
-  "bugs": {
-    "url": "https://github.com/butterhosting/react-yesquery/issues"
-  },
+  "author": "Jessy <contact@butterhost.ing>",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/butterhosting/react-yesquery.git"
   },
-  "license": "MIT",
-  "author": "Jessy <contact@butterhost.ing>",
-  "type": "commonjs",
-  "files": [
-    "lib"
-  ],
   "main": "lib/useYesQuery.js",
-  "types": "lib/useYesQuery.d.ts",
-  "scripts": {
-    "tc": "tsc --noEmit",
-    "test": "jest",
-    "build": "rm -rf lib && tsc -p tsconfig.build.json"
-  },
-  "peerDependencies": {
-    "@types/react": "^19"
-  },
   "devDependencies": {
     "@testing-library/react": "^16.3.2",
     "@types/jest": "^30.0.0",
@@ -40,5 +16,29 @@
     "jest-environment-jsdom": "^30.4.1",
     "ts-jest": "^29.4.9",
     "typescript": "^6.0.3"
-  }
+  },
+  "peerDependencies": {
+    "@types/react": "^19"
+  },
+  "bugs": {
+    "url": "https://github.com/butterhosting/react-yesquery/issues"
+  },
+  "description": "A simple library for React loading state management",
+  "files": [
+    "lib"
+  ],
+  "homepage": "https://github.com/butterhosting/react-yesquery#readme",
+  "keywords": [
+    "loading",
+    "query",
+    "state"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "tc": "tsc --noEmit",
+    "test": "jest",
+    "build": "rm -rf lib && tsc -p tsconfig.build.json"
+  },
+  "type": "commonjs",
+  "types": "lib/useYesQuery.d.ts"
 }
