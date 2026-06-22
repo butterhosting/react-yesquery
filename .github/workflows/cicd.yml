@@ -1,0 +1,61 @@
+on:
+  push:
+    tags:
+      - "*"
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  NODE_MAJOR_VERSION: "26"
+
+jobs:
+  cicd:
+    name: "CI/CD Pipeline"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Environment :: Setup"
+        uses: actions/checkout@v6
+
+      - name: "Environment :: Node"
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_MAJOR_VERSION }}
+          cache: "npm"
+
+      - name: "Setup :: Install"
+        run: npm ci
+
+      - name: "Application :: Typecheck"
+        run: npm run tc
+
+      - name: "Application :: Build"
+        run: npm run build
+
+      - name: "Application :: Test"
+        run: npm test
+
+      - name: "Release :: Version"
+        if: startsWith(github.ref, 'refs/tags/')
+        run: npm version $GITHUB_REF_NAME --git-tag-version false
+
+      - name: "Release :: Publish"
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          if [[ "$VERSION" == *-* ]]; then
+            # Prerelease (e.g. 1.0.0-alpha.1) -> dist-tag "alpha"
+            TAG="${VERSION#*-}"
+            TAG="${TAG%%.*}"
+          else
+            # Stable release (e.g. 1.0.0) -> dist-tag "latest"
+            TAG="latest"
+          fi
+          npm publish --access public --tag "$TAG"
